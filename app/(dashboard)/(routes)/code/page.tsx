@@ -2,12 +2,14 @@
 
 import axios from "axios"
 import * as z from "zod"
-import { MessageSquare } from "lucide-react"
+import { Code } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import OpenAI from "openai"
 import { useState } from "react"
+import Markdown from "react-markdown"
+import remarkGfm from 'remark-gfm'
 
 import Heading from "@/components/heading"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
@@ -21,9 +23,9 @@ import { BotAvatar } from "@/components/bot-avatar"
 
 import { formSchema } from "./constants"
 
-type ConversationPageProps = {}
+type CodePageProps = {}
 
-export default function ConversationPage({}: ConversationPageProps) {
+export default function CodePage({}: CodePageProps) {
   const router = useRouter()
   const [messages, setMessages] = useState<
     OpenAI.Chat.ChatCompletionUserMessageParam[]
@@ -47,7 +49,7 @@ export default function ConversationPage({}: ConversationPageProps) {
 
       const newMessages = [...messages, userMessage]
 
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/code", {
         messages: newMessages,
       })
 
@@ -65,11 +67,11 @@ export default function ConversationPage({}: ConversationPageProps) {
   return (
     <div>
       <Heading
-        title='Conversation'
-        description='对话模块'
-        icon={MessageSquare}
-        iconColor='text-violet-500'
-        bgColor='bg-violet-500/10'
+        title='Code'
+        description='来学习写代码吧'
+        icon={Code}
+        iconColor='text-green-500'
+        bgColor='bg-green-500/10'
       />
       <div className='px-4 lg:px-8'>
         <div>
@@ -85,7 +87,7 @@ export default function ConversationPage({}: ConversationPageProps) {
                       <Input
                         className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
-                        placeholder='如何计算圆的面积？'
+                        placeholder='使用python编写一个计算圆形面积的函数'
                         {...field}
                       />
                     </FormControl>
@@ -122,7 +124,21 @@ export default function ConversationPage({}: ConversationPageProps) {
                     : "bg-muted"
                 )}>
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className='text-sm'>{String(message.content)}</p>
+                <Markdown
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className='overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg'>
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code {...props} className='bg-black/10 p-1 rounded-lg' />
+                    ),
+                  }}
+                  // remarkPlugins={[remarkGfm]}
+                  className='text-sm overflow-hidden leading-7'>
+                  {String(message.content) || ""}
+                </Markdown>
               </div>
             ))}
           </div>
