@@ -6,7 +6,6 @@ import { Download, ImageIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
-import OpenAI from "openai"
 import { useState } from "react"
 import Image from "next/image"
 
@@ -28,18 +27,19 @@ import { cn } from "@/lib/utils"
 
 import { amountOptions, formSchema, resolutionOptions } from "./constants"
 
-type ImagePageProps = {}
+type OpenaiDataProps = { url: string; revised_prompt?: string }[]
 
-export default function ImagePage({}: ImagePageProps) {
+export default function ImagePage() {
   const router = useRouter()
-  const [images, setImages] = useState<string[]>([])
+  const [images, setImages] = useState<OpenaiDataProps>([])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       prompt: "",
       amount: "1",
-      resolution: "512x512",
+      resolution: "1024x1024",
+      model: "dall-e-2",
     },
   })
 
@@ -50,9 +50,9 @@ export default function ImagePage({}: ImagePageProps) {
       setImages([])
       const response = await axios.post("/api/image", values)
       // console.log(response)
-      const urls = response.data.map((image: { url: string }) => image.url)
+      const data: OpenaiDataProps = response.data
 
-      setImages(urls)
+      setImages(data)
       form.reset()
     } catch (error) {
       // TODO: Open Pro Modal
@@ -163,25 +163,30 @@ export default function ImagePage({}: ImagePageProps) {
           {images.length === 0 && !isLoading && (
             <Empty label='还没有图片生成' />
           )}
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8'>
-            {images.map((src, index) => (
+          <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-8'>
+            {images.map(({ url, revised_prompt }, index) => (
               <Card key={index} className='rounded-lg overflow-hidden'>
                 <div className='relative aspect-square'>
                   <Image
                     alt='Image'
                     fill
-                    src={src}
+                    src={url}
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   />
                 </div>
-                <CardFooter className='p-2'>
+                <CardFooter className='p-2 grid'>
                   <Button
-                    onClick={() => window.open(src)}
+                    onClick={() => window.open(url)}
                     variant='secondary'
                     className='w-full'>
                     <Download className='h-4 w-4 mr-2' />
                     下载图片
                   </Button>
+                  {revised_prompt && (
+                    <p className='text-xs text-gray-500 p-1'>
+                      {revised_prompt}
+                    </p>
+                  )}
                 </CardFooter>
               </Card>
             ))}
