@@ -72,7 +72,12 @@ export default function Sidebar({}: SidebarProps) {
       <div className='px-3 py-2 flex-1'>
         <Link href='/dashboard' className='flex items-center pl-3 mb-14'>
           <div className='relative w-8 h-8 mr-4'>
-            <Image fill alt='Logo' src='/logo.png' />
+            <Image
+              fill
+              alt='Logo'
+              src='/logo.png'
+              sizes='(max-width: 256px) 10vw, (max-width: 256px) 10vw, 10vw'
+            />
           </div>
           <h1 className={cn("text-xl font-bold", montserrat.className)}>
             AI platform
