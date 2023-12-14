@@ -16,10 +16,11 @@ import { Empty } from "@/components/empty"
 import { Loader } from "@/components/loader"
 
 import { formSchema } from "./constants"
-
-type MusicPageProps = {}
+import { useProModal } from "@/hooks/use-pro-modal"
 
 export default function MusicPage() {
+  const proModal = useProModal()
+
   const router = useRouter()
   const [music, setMusic] = useState<string>()
 
@@ -41,9 +42,8 @@ export default function MusicPage() {
       setMusic(response.data.audio)
 
       form.reset()
-    } catch (error) {
-      // TODO: Open Pro Modal
-      console.log(error)
+    } catch (error: any) {
+      if (error?.response?.status === 416) proModal.onOpen()
     } finally {
       router.refresh()
     }

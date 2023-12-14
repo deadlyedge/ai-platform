@@ -3,8 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Montserrat } from "next/font/google"
-
-import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 import {
   Code,
   ImageIcon,
@@ -14,9 +13,11 @@ import {
   Settings,
   VideoIcon,
 } from "lucide-react"
-import { usePathname } from "next/navigation"
 
-type SidebarProps = {}
+import { cn } from "@/lib/utils"
+import { TrailCounter } from "@/components/trail-counter"
+
+type SidebarProps = { apiLimitCount: number }
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] })
 
@@ -64,7 +65,7 @@ const routes = [
   },
 ]
 
-export default function Sidebar({}: SidebarProps) {
+export default function Sidebar({ apiLimitCount = 0 }: SidebarProps) {
   const pathname = usePathname()
 
   return (
@@ -102,6 +103,7 @@ export default function Sidebar({}: SidebarProps) {
           ))}
         </div>
       </div>
+      <TrailCounter apiLimitCount={apiLimitCount} />
     </div>
   )
 }

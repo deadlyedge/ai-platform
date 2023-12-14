@@ -18,12 +18,12 @@ import { Loader } from "@/components/loader"
 import { cn } from "@/lib/utils"
 import { UserAvatar } from "@/components/user-avatar"
 import { BotAvatar } from "@/components/bot-avatar"
+import { useProModal } from "@/hooks/use-pro-modal"
 
 import { formSchema } from "./constants"
 
-type ConversationPageProps = {}
-
-export default function ConversationPage({}: ConversationPageProps) {
+export default function ConversationPage() {
+  const proModal = useProModal()
   const router = useRouter()
   const [messages, setMessages] = useState<
     OpenAI.Chat.ChatCompletionUserMessageParam[]
@@ -54,9 +54,8 @@ export default function ConversationPage({}: ConversationPageProps) {
       setMessages((current) => [...current, userMessage, response.data])
 
       form.reset()
-    } catch (error) {
-      // TODO: Open Pro Modal
-      console.log(error)
+    } catch (error: any) {
+      if (error?.response?.status === 416) proModal.onOpen()
     } finally {
       router.refresh()
     }

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation"
 import OpenAI from "openai"
 import { useState } from "react"
 import Markdown from "react-markdown"
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm"
 
 import Heading from "@/components/heading"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
@@ -20,12 +20,14 @@ import { Loader } from "@/components/loader"
 import { cn } from "@/lib/utils"
 import { UserAvatar } from "@/components/user-avatar"
 import { BotAvatar } from "@/components/bot-avatar"
+import { useProModal } from "@/hooks/use-pro-modal"
 
 import { formSchema } from "./constants"
 
 type CodePageProps = {}
 
 export default function CodePage({}: CodePageProps) {
+  const proModal = useProModal()
   const router = useRouter()
   const [messages, setMessages] = useState<
     OpenAI.Chat.ChatCompletionUserMessageParam[]
@@ -56,9 +58,8 @@ export default function CodePage({}: CodePageProps) {
       setMessages((current) => [...current, userMessage, response.data])
 
       form.reset()
-    } catch (error) {
-      // TODO: Open Pro Modal
-      console.log(error)
+    } catch (error: any) {
+      if (error?.response?.status === 416) proModal.onOpen()
     } finally {
       router.refresh()
     }

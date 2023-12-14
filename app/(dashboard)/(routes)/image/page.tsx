@@ -23,13 +23,15 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Card, CardFooter } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { useProModal } from "@/hooks/use-pro-modal"
 
 import { amountOptions, formSchema, resolutionOptions } from "./constants"
 
 type OpenaiDataProps = { url: string; revised_prompt?: string }[]
 
 export default function ImagePage() {
+  const proModal = useProModal()
+
   const router = useRouter()
   const [images, setImages] = useState<OpenaiDataProps>([])
 
@@ -54,9 +56,8 @@ export default function ImagePage() {
 
       setImages(data)
       form.reset()
-    } catch (error) {
-      // TODO: Open Pro Modal
-      console.log(error)
+    } catch (error: any) {
+      if (error?.response?.status === 416) proModal.onOpen()
     } finally {
       router.refresh()
     }
