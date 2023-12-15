@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import OpenAI from "openai"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 import Heading from "@/components/heading"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
@@ -55,7 +56,11 @@ export default function ConversationPage() {
 
       form.reset()
     } catch (error: any) {
-      if (error?.response?.status === 416) proModal.onOpen()
+      if (error?.response?.status === 416) {
+        proModal.onOpen()
+      } else {
+        toast.error("出问题啦")
+      }
     } finally {
       router.refresh()
     }

@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Image from "next/image"
+import toast from "react-hot-toast"
 
 import Heading from "@/components/heading"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
@@ -57,7 +58,11 @@ export default function ImagePage() {
       setImages(data)
       form.reset()
     } catch (error: any) {
-      if (error?.response?.status === 416) proModal.onOpen()
+      if (error?.response?.status === 416) {
+        proModal.onOpen()
+      } else {
+        toast.error("出问题啦")
+      }
     } finally {
       router.refresh()
     }

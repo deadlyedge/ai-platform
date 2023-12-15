@@ -11,6 +11,7 @@ import {
   Zap,
 } from "lucide-react"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 import {
   Dialog,
@@ -69,7 +70,7 @@ export const ProModal = () => {
 
       window.location.href = response.data.url
     } catch (error) {
-      console.log(error, "STRIPE_CLIENT_ERROR")
+      toast.error("STRIPE_CLIENT_ERROR")
     } finally {
       setIsLoading(false)
     }
@@ -104,7 +105,11 @@ export const ProModal = () => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={onSubscribe} variant='premium' size='lg'>
+          <Button
+            disabled={isLoading}
+            onClick={onSubscribe}
+            variant='premium'
+            size='lg'>
             确认升级
             <Zap />
           </Button>
