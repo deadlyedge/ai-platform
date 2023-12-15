@@ -17,7 +17,10 @@ import {
 import { cn } from "@/lib/utils"
 import { TrailCounter } from "@/components/trail-counter"
 
-type SidebarProps = { apiLimitCount: number }
+type SidebarProps = {
+  apiLimitCount: number
+  isPro: boolean
+}
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] })
 
@@ -65,7 +68,10 @@ const routes = [
   },
 ]
 
-export default function Sidebar({ apiLimitCount = 0 }: SidebarProps) {
+export default function Sidebar({
+  apiLimitCount = 0,
+  isPro = false,
+}: SidebarProps) {
   const pathname = usePathname()
 
   return (
@@ -103,7 +109,7 @@ export default function Sidebar({ apiLimitCount = 0 }: SidebarProps) {
           ))}
         </div>
       </div>
-      <TrailCounter apiLimitCount={apiLimitCount} />
+      <TrailCounter isPro={isPro} apiLimitCount={apiLimitCount} />
     </div>
   )
 }

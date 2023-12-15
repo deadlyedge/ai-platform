@@ -33,7 +33,7 @@ export async function GET() {
 
     const stripeSession = await stripe.checkout.sessions.create({
       mode: "subscription",
-      payment_method_types: ["card", "alipay", "wechat_pay"],
+      payment_method_types: ["card"], // , "wechat_pay", "alipay"
       success_url: settingsUrl,
       cancel_url: settingsUrl,
       billing_address_collection: "auto",

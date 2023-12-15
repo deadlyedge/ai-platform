@@ -7,9 +7,15 @@ import { MAX_FREE_COUNTS } from "@/constants"
 import { Button } from "@/components/ui/button"
 import { useProModal } from "@/hooks/use-pro-modal"
 
-type TrailCounterProps = { apiLimitCount: number }
+type TrailCounterProps = {
+  apiLimitCount: number
+  isPro: boolean
+}
 
-export function TrailCounter({ apiLimitCount = 0 }: TrailCounterProps) {
+export function TrailCounter({
+  apiLimitCount = 0,
+  isPro = false,
+}: TrailCounterProps) {
   const proModal = useProModal()
 
   const [mounted, setMounted] = useState(false)
@@ -17,6 +23,8 @@ export function TrailCounter({ apiLimitCount = 0 }: TrailCounterProps) {
     setMounted(true)
   }, [])
   if (!mounted) return null
+
+  if (isPro) return null
 
   return (
     <div className='px-3'>
