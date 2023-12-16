@@ -4,13 +4,13 @@ import { Menu } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import Sidebar from "@/components/sidebar"
+import { Sidebar } from "@/components/sidebar"
 
 type MobileSidebarProps = {
   apiLimitCount: number
   isPro: boolean
 }
-export default function MobileSidebar({
+export function MobileSidebar({
   apiLimitCount = 0,
   isPro = false,
 }: MobileSidebarProps) {

@@ -68,10 +68,7 @@ const routes = [
   },
 ]
 
-export default function Sidebar({
-  apiLimitCount = 0,
-  isPro = false,
-}: SidebarProps) {
+export function Sidebar({ apiLimitCount = 0, isPro = false }: SidebarProps) {
   const pathname = usePathname()
 
   return (

@@ -8,14 +8,12 @@ import { useAuth } from "@clerk/nextjs"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-type LandingNavbarProps = {}
-
 const font = Montserrat({
   weight: "600",
   subsets: ["latin"],
 })
 
-export function LandingNavbar({}: LandingNavbarProps) {
+export function LandingNavbar() {
   const { isSignedIn } = useAuth()
   return (
     <nav className='p-4 bg-transparent flex items-center justify-between'>

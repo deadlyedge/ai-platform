@@ -5,9 +5,7 @@ import Link from "next/link"
 import TypewriterComponent from "typewriter-effect"
 import { Button } from "./ui/button"
 
-type LandingHeroProps = {}
-
-export function LandingHero({}: LandingHeroProps) {
+export function LandingHero() {
   const { isSignedIn } = useAuth()
   return (
     <div className='text-white font-bold py-36 text-center space-y-5'>

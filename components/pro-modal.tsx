@@ -59,7 +59,7 @@ const tools = [
   },
 ]
 
-export const ProModal = () => {
+export function ProModal() {
   const proModal = useProModal()
   const [isLoading, setIsLoading] = useState(false)
 

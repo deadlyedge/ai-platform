@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
-import Heading from "@/components/heading"
+import { Heading } from "@/components/heading"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"

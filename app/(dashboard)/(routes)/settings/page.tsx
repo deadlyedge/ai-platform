@@ -1,11 +1,10 @@
-import Heading from "@/components/heading"
-import { SubscriptionButton } from "@/components/subscription-button"
-import { checkSubscription } from "@/lib/subscription"
 import { Settings } from "lucide-react"
 
-type SettingsPageProps = {}
+import { Heading } from "@/components/heading"
+import { SubscriptionButton } from "@/components/subscription-button"
+import { checkSubscription } from "@/lib/subscription"
 
-export default async function SettingsPage({}: SettingsPageProps) {
+export default async function SettingsPage() {
   const isPro = await checkSubscription()
 
   return (

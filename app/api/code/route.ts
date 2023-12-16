@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       messages: [instructionMessage, ...messages],
     })
 
-    if (!isPro) await increaseApiLimits()   // maybe i want to check usage?
+    if (!isPro) await increaseApiLimits() // maybe i want to check usage?
 
     return NextResponse.json(chatCompletion.choices[0].message)
   } catch (error) {
