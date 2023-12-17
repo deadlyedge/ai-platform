@@ -48,12 +48,14 @@ const routes = [
     icon: VideoIcon,
     href: "/video",
     color: "text-orange-700",
+    disabled: true,
   },
   {
     label: "Music Generation",
     icon: Music,
     href: "/music",
     color: "text-emerald-500",
+    disabled: true,
   },
   {
     label: "Code Generation",
@@ -91,15 +93,22 @@ export function Sidebar({ apiLimitCount = 0, isPro = false }: SidebarProps) {
           {routes.map((route) => (
             <Link
               key={route.href}
-              href={route.href}
+              href={route.disabled ? "#" : route.href}
               className={cn(
                 "text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
-                pathname === route.href
+                route.disabled
+                  ? "text-gray-700/50 hover:line-through hover:text-white/10 hover:bg-white/5"
+                  : pathname === route.href
                   ? "text-white bg-white/10"
                   : "text-zinc-400"
               )}>
               <div className='flex items-center flex-1'>
-                <route.icon className={cn("h-5 w-5 mr-3", route.color)} />
+                <route.icon
+                  className={cn(
+                    "h-5 w-5 mr-3",
+                    route.disabled ? "" : route.color
+                  )}
+                />
                 {route.label}
               </div>
             </Link>

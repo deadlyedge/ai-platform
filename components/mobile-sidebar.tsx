@@ -23,15 +23,17 @@ export function MobileSidebar({
   if (!isMounted) return null
 
   return (
-    <Sheet>
-      <SheetTrigger className='md:hidden'>
-        {/* <Button variant='ghost' size='icon' className='md:hidden'> */}
-        <Menu />
-        {/* </Button> */}
-      </SheetTrigger>
-      <SheetContent side='left' className='p-0'>
-        <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
-      </SheetContent>
-    </Sheet>
+    <div className='w-64'>
+      <Sheet>
+        <SheetTrigger className='md:hidden'>
+          {/* <Button variant='ghost' size='icon' className='md:hidden'> */}
+          <Menu />
+          {/* </Button> */}
+        </SheetTrigger>
+        <SheetContent side='left' className='p-0'>
+          <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
+        </SheetContent>
+      </Sheet>
+    </div>
   )
 }
