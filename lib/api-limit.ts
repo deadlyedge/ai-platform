@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs"
 import prisma from "@/lib/prismadb"
 import { MAX_FREE_COUNTS } from "@/constants"
 
-export async function increaseApiLimits() {
+export async function increaseApiLimits(rate: number = 1) {
   const { userId } = auth()
 
   if (!userId) return
@@ -20,7 +20,7 @@ export async function increaseApiLimits() {
         userId,
       },
       data: {
-        count: userApiLimit.count + 1,
+        count: userApiLimit.count + rate,
       },
     })
   } else {

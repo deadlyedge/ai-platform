@@ -32,6 +32,8 @@ export async function POST(req: Request) {
       return new NextResponse("Free trial has expired.", { status: 416 })
     }
 
+    // console.log('messages---',messages)
+
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages,

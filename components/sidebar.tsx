@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   MessageSquare,
   Music,
+  PieChart,
   Settings,
   VideoIcon,
 } from "lucide-react"
@@ -32,10 +33,16 @@ const routes = [
     color: "text-sky-500",
   },
   {
-    label: "Conversation",
+    label: "ChatGPT",
     icon: MessageSquare,
     href: "/conversation",
     color: "text-violet-500",
+  },
+  {
+    label: "Gemini Google",
+    icon: PieChart,
+    href: "/gemini",
+    color: "text-orange-700",
   },
   {
     label: "Image Generation",

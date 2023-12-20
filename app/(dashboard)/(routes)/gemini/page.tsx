@@ -6,7 +6,6 @@ import { MessageSquare } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
-import OpenAI from "openai"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
@@ -23,12 +22,15 @@ import { useProModal } from "@/hooks/use-pro-modal"
 
 import { formSchema } from "./constants"
 
-export default function ConversationPage() {
+type MessageProps = {
+  role: string
+  content: string
+}[]
+
+export default function GeminiPage() {
   const proModal = useProModal()
   const router = useRouter()
-  const [messages, setMessages] = useState<
-    OpenAI.Chat.ChatCompletionUserMessageParam[]
-  >([])
+  const [messages, setMessages] = useState<MessageProps>([])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,20 +43,19 @@ export default function ConversationPage() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: OpenAI.Chat.ChatCompletionUserMessageParam = {
+      const userMessage = {
         role: "user",
         content: values.prompt,
       }
 
       const newMessages = [...messages, userMessage]
 
-      
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/gemini", {
         messages: newMessages,
       })
-      
+
       setMessages((current) => [...current, userMessage, response.data])
-      
+
       form.reset()
     } catch (error: any) {
       if (error?.response?.status === 416) {
@@ -70,7 +71,7 @@ export default function ConversationPage() {
   return (
     <div>
       <Heading
-        title='Conversation'
+        title='Gemini'
         description='对话模块'
         icon={MessageSquare}
         iconColor='text-violet-500'

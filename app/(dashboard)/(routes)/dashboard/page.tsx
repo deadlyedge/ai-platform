@@ -10,6 +10,7 @@ import {
   Music,
   VideoIcon,
   MessageCircleWarning,
+  PieChart,
 } from "lucide-react"
 
 import { Card } from "@/components/ui/card"
@@ -17,11 +18,18 @@ import { cn } from "@/lib/utils"
 
 const tools = [
   {
-    label: "Conversation",
+    label: "ChatGPT",
     icon: MessageSquare,
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",
     href: "/conversation",
+  },
+  {
+    label: "Gemini Google",
+    icon: PieChart,
+    color: "text-orange-400",
+    bgColor: "bg-orange-400/10",
+    href: "/gemini",
   },
   {
     label: "Music Generation",
@@ -85,7 +93,7 @@ export default function DashboardPage() {
           )
         )}
       </div>
-      <div className='text-muted-foreground font-light italic text-sm md:text-lg text-center mt-5 flex justify-center items-center'>
+      <div className='text-muted-foreground font-light italic text-sm text-center mt-5 flex justify-center items-center'>
         <MessageCircleWarning className='w-8 h-8 ' />
         鉴于目前基于AI的视频和音乐生成品质难以保证“惊艳”的质量，暂时停用此两项功能。
       </div>
