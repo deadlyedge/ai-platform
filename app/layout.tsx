@@ -9,8 +9,9 @@ import { ToasterProvider } from "@/components/toast-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "AI platform",
-  description: "try make openAI api useful",
+  title: "SwAIche",
+  description:
+    "Combine multi ai platform in one place, make them easy to reach.",
 }
 
 export default function RootLayout({

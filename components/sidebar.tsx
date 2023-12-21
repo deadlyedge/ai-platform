@@ -93,7 +93,8 @@ export function Sidebar({ apiLimitCount = 0, isPro = false }: SidebarProps) {
             />
           </div>
           <h1 className={cn("text-xl font-bold", montserrat.className)}>
-            AI platform
+            S<span className='text-zinc-400'>w</span>AI
+            <span className='text-zinc-400'>che</span>
           </h1>
         </Link>
         <div className='space-y-1'>
