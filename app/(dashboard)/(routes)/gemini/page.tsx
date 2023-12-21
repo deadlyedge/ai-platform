@@ -8,6 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import Markdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 import { Heading } from "@/components/heading"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
@@ -24,7 +26,7 @@ import { formSchema } from "./constants"
 
 type MessageProps = {
   role: string
-  content: string
+  parts: string
 }[]
 
 export default function GeminiPage() {
@@ -45,7 +47,7 @@ export default function GeminiPage() {
     try {
       const userMessage = {
         role: "user",
-        content: values.prompt,
+        parts: values.prompt,
       }
 
       const newMessages = [...messages, userMessage]
@@ -60,8 +62,11 @@ export default function GeminiPage() {
     } catch (error: any) {
       if (error?.response?.status === 416) {
         proModal.onOpen()
+      } else if (error?.response?.status === 417) {
+        toast.error("不恰当的对话")
+        form.reset()
       } else {
-        toast.error("出问题啦")
+        toast.error("未知错误")
       }
     } finally {
       router.refresh()
@@ -128,7 +133,9 @@ export default function GeminiPage() {
                     : "bg-muted"
                 )}>
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className='text-sm'>{String(message.content)}</p>
+                <Markdown remarkPlugins={[remarkGfm]} className='text-sm'>
+                  {String(message.parts)}
+                </Markdown>
               </div>
             ))}
           </div>
