@@ -70,8 +70,8 @@ export default function ConversationPage() {
   return (
     <div>
       <Heading
-        title='Conversation'
-        description='对话模块'
+        title='Chat with GPT'
+        description='由openai提供的对话模块'
         icon={MessageSquare}
         iconColor='text-violet-500'
         bgColor='bg-violet-500/10'

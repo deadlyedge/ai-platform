@@ -11,7 +11,7 @@ export default async function SettingsPage() {
     <div>
       <Heading
         title='账户设置'
-        description='管理您的AI-platform账户'
+        description='管理您的 SwAIche 账户订阅'
         icon={Settings}
         iconColor='text-gray-700'
         bgColor='bg-gray-700/10'

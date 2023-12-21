@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import * as z from "zod"
-import { MessageSquare } from "lucide-react"
+import { PieChart } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
@@ -76,11 +76,11 @@ export default function GeminiPage() {
   return (
     <div>
       <Heading
-        title='Gemini'
-        description='对话模块'
-        icon={MessageSquare}
-        iconColor='text-violet-500'
-        bgColor='bg-violet-500/10'
+        title='Gemini Chat'
+        description='当前免费，如果你的语速不是很快的话'
+        icon={PieChart}
+        iconColor='text-orange-500'
+        bgColor='bg-orange-500/10'
       />
       <div className='px-4 lg:px-8'>
         <div>
@@ -96,7 +96,7 @@ export default function GeminiPage() {
                       <Input
                         className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
-                        placeholder='如何计算圆的面积？'
+                        placeholder='天空为什么是蓝色的？'
                         {...field}
                       />
                     </FormControl>

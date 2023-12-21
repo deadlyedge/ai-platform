@@ -50,7 +50,8 @@ export function LandingContent() {
         ))}
       </div>
       <p className='text-center text-sx text-zinc-600 font-extrabold my-10'>
-        Built with ❤️ by <a href='XXXXXXXXXXXXXXXXXXXXXXXX'>OldLu</a> and{" "}
+        Built with ❤️ by{" "}
+        <a href='https://github.com/deadlyedge/sw-ai-che'>OldLu</a> and{" "}
         <a href='https://github.com/AntonioErdeljac/next13-ai-saas'>Antonio</a>.
       </p>
     </div>

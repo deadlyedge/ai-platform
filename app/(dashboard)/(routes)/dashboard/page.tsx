@@ -18,14 +18,14 @@ import { cn } from "@/lib/utils"
 
 const tools = [
   {
-    label: "ChatGPT",
+    label: "Chat-with-GPT",
     icon: MessageSquare,
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",
     href: "/conversation",
   },
   {
-    label: "Gemini Google",
+    label: "Gemini-chat-Google",
     icon: PieChart,
     color: "text-orange-400",
     bgColor: "bg-orange-400/10",
@@ -97,6 +97,10 @@ export default function DashboardPage() {
         <MessageCircleWarning className='w-8 h-8 ' />
         鉴于目前基于AI的视频和音乐生成品质难以保证“惊艳”的质量，暂时停用此两项功能。
       </div>
+      <p className='text-center text-sx text-zinc-300 font-bold mt-20'>
+        Built with ❤️ by{" "}
+        <a href='https://github.com/deadlyedge/sw-ai-che'>OldLu</a>.
+      </p>
     </div>
   )
 }

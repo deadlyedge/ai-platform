@@ -28,6 +28,7 @@ export function SubscriptionButton({ isPro = false }: SubscriptionButtonProps) {
     <Button
       disabled={isLoading}
       variant={isPro ? "default" : "premium"}
+      className="w-fit"
       onClick={onClick}>
       {isPro ? "管理订阅" : "升级会员"}
       {!isPro && <Zap className='w-4 h-4 ml-2 fill-white' />}
